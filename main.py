@@ -212,7 +212,7 @@ async def daloop():
         general = client.get_channel(1059569601144442911)
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="neuro-sama"))
         isLoopActive = True
-        #await general.send('shut the fuck up')
+        await general.send('Neuro is live! <#1059569601144442911>')
         browser = webdriver.Firefox()
         browser.get('https://www.twitch.tv/vedal987')
         browser.fullscreen_window()
