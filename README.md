@@ -8,4 +8,5 @@ GOALS:
 - [ ] Migrate to Twitch API 
 - [ ] Migrate to embeded player
 - [ ] Use a queue to keep a backlog when over rate limit 
-- [ ] ? detect end of text? 
+- [ ] detect end of text? 
+-- [ ] Use Twitch API to create markers 
