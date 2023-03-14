@@ -216,7 +216,7 @@ async def screenshotting():
         elif function == 'dev_loop':
             await screenshot_loop(1350, 975, 200, 75, 1067638175478071307)
     general = client.get_channel(1059569601144442911)
-    if check_live() and isLoopActive == False and stop == False:
+    if isLoopActive == False and check_live() and stop == False:
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="neuro-sama"))
         isLoopActive = True
         await general.send('Neuro is live! <#1067638175478071307>')
@@ -273,7 +273,7 @@ observer.observe(liveTime, {
   subtree: true
 });
 """)
-    elif check_live() == False and isLoopActive == True and isBrowserAlive():
+    elif isLoopActive == True and check_live() == False and isBrowserAlive():
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="out for neuro-sama's livestream"))
         browser.quit()
         await general.send('Neuro is no longer live :(')
