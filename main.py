@@ -39,7 +39,7 @@ def check_roles(ctx):
     vedal = role = discord.utils.get(ctx.guild.roles, id=574724513376370691)
     role = discord.utils.get(ctx.guild.roles, id=574931772781887488)
     roles = ctx.author.roles
-    if moderator in roles or admin in roles or vedal in roles or ctx.author.id == 452436342841016341:
+    if moderator in roles or admin in roles or vedal in roles:
         return True
     else:
         return False
@@ -70,7 +70,7 @@ async def stop(ctx):
             stop = True
             isLoopActive = False
         elif isLoopActive and check_live() == False:
-            await ctx.reply('Cannot stop capturing if there isnt any livestream going on. Also, this error shouldnt exist as if there is no livestream, it automaticly stops capturing <@!452436342841016341>')
+            await ctx.reply('Cannot stop capturing if there isnt any livestream going on. Also, this error shouldnt exist as if there is no livestream, it automaticly stops capturing.')
 
 
 @client.command()
@@ -118,9 +118,9 @@ async def create_template(ctx, coords, preprocessing):
             await ctx.reply(file=file)
 
 
-for file in os.listdir(r'C:\Users\TC\Desktop\NeuroClipper'): 
+for file in os.listdir(r'C:\Users\User\Desktop\NeuroClipper'): 
         if file.startswith('result'):
-            os.remove(r'C:\Users\TC\Desktop\NeuroClipper\\' + file )
+            os.remove(r'C:\Users\User\Desktop\NeuroClipper\\' + file )
 
 
 def preprocessing(image):
@@ -142,17 +142,11 @@ def create_input(x1, y1, x2, y2):
     rating = np.sum(output == 0)
     return rating
 
-ratings = []
-async def get_minmax():
-    for i in ratings:
-        if i == 0:
-            array.pop(i)
-    channel = client.get_channel(733642306565046346)
-    await channel.send(f'> Maximum Pixel Count: {str(max(ratings))}\n > Mininum Pixel Count: {str(min(ratings))}')
+
 async def screenshot_loop(x1, y1, x2, y2):
     channel = client.get_channel(1067638175478071307)
     thread = channel.get_thread(1085238141574713384)
-    global counter, array, recentImage
+    global counter, array, recentImage, ratings
     rating = create_input(x1, y1, x2, y2)
     if rating == 0:
         x = 1
@@ -164,7 +158,6 @@ async def screenshot_loop(x1, y1, x2, y2):
             image.save('checking.png')
             image = preprocessing('checking.png')
             rating = np.sum(image == 0)
-            ratings.append(rating)
             print("Trying image " + str(x) + "...")
             if recentImage == False:
                 if rating != 0:
@@ -186,9 +179,8 @@ async def screenshot_loop(x1, y1, x2, y2):
             mon = {"top": mon["top"], "left": mon["left"], "width": mon["width"], "height": mon["height"], "mon": 1}
             placeholder = sct.grab(monitor=mon)
             array.insert(0, placeholder)
+            ratings.append(rating)
         recentImage = False
-    if len(ratings) % 150 == 0:
-        await get_minmax()
 
 
 def isBrowserAlive():
@@ -210,11 +202,11 @@ async def screenshotting():
     global isLoopActive, browser, stop
     if isLoopActive:
         if function == 'normal_loop':
-            await screenshot_loop(790, 900, 350, 100, 1067638175478071307)
+            await screenshot_loop(790, 900, 350, 100)
         elif function == 'collab_loop':
-            await screenshot_loop(950, 940, 450, 80, 1067638175478071307)
+            await screenshot_loop(950, 940, 450, 80)
         elif function == 'dev_loop':
-            await screenshot_loop(1350, 975, 200, 75, 1067638175478071307)
+            await screenshot_loop(1350, 975, 200, 75)
     general = client.get_channel(1059569601144442911)
     if isLoopActive == False and check_live() and stop == False:
         await client.change_presence(activity=discord.Activity(type=discord.ActivityType.watching, name="neuro-sama"))
@@ -246,9 +238,9 @@ style.textContent = `#on-video-time {
   z-index: 9999;
 
   color: black;
-  font-size: 4rem;
+  font-size: 5rem;
   font-weight: bold;
-  text-shadow: 0 0 2px black;
+  text-shadow: 0 0 2px white;
 }`;
 
 document.head.appendChild(style);
@@ -281,7 +273,8 @@ observer.observe(liveTime, {
         isLoopActive = False
       
 
-client.run("token")
+client.run("")
+
 
 
 
