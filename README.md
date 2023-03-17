@@ -14,3 +14,4 @@ GOALS:
  - [ ] detect end of text 
  - - [ ] Use Twitch API to create markers (requires the account with API key to have editor perms)
  - [ ] migrate code to a RedBot cog
+ - [ ] add depenency installer?
